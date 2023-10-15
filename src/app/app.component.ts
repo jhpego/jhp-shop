@@ -1,6 +1,7 @@
 import { Component, ViewChild, inject } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 // import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 // import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -19,6 +20,8 @@ export class AppComponent {
     translate: TranslateService
     // private firestore: AngularFirestore
   ) {
+    console.warn('is production mode? ', environment.production); // Logs false for development environment
+
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('pt');
 

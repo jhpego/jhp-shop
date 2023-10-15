@@ -1,6 +1,6 @@
 export const environment = {
-  production: true,
-  baseRef: '/jhp-shop',
+  production: false,
+  baseRef: '/',
   firebase: {
     projectId: 'myhome-7bab1',
     appId: '1:111919944545:web:206cf821a2894f8a7feb20',
