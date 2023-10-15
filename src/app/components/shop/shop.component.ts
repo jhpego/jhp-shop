@@ -14,10 +14,7 @@ import {
   ShopListMode,
 } from '../../models/models';
 import { ShopItemsService } from 'src/app/services/shop-items.service';
-import {
-  MatBottomSheet,
-  MatBottomSheetConfig,
-} from '@angular/material/bottom-sheet';
+import { ShopListComponent } from '../shop-list/shop-list.component';
 
 @Component({
   selector: 'app-shop',
@@ -32,6 +29,8 @@ export class ShopComponent {
     private cdr: ChangeDetectorRef
   ) {}
 
+  @ViewChild('aquired') shopListComponentAquired!: ShopListComponent;
+
   ShopListMode = ShopListMode;
   itemsList: ShopItem[] = [];
 
@@ -43,9 +42,11 @@ export class ShopComponent {
   }
 
   public get itemsTotal() {
-    return this.shopItemsService
-      .getAquired()
-      .reduce((prev, curr) => prev + curr.price * curr.quantity, 0);
+    console.warn('calc shop total: ');
+    if (this.shopListComponentAquired != undefined) {
+      return this.shopListComponentAquired.total;
+    }
+    return 0;
   }
 
   // onItemChanged(item: ShopItem) {

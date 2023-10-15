@@ -20,9 +20,7 @@ import { ShopItemsService } from 'src/app/services/shop-items.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopListComponent {
-  constructor() // private shopItemsService: ShopItemsService,
-  // private cdr: ChangeDetectorRef
-  {}
+  constructor() {} // private cdr: ChangeDetectorRef // private shopItemsService: ShopItemsService,
   ProductCategoryKindEnum = ProductCategoryKind;
 
   @Input() listMode: ShopListMode = ShopListMode.Unset;
@@ -33,6 +31,13 @@ export class ShopListComponent {
 
   public get itemsList() {
     return this.itemslist;
+  }
+
+  public get total() {
+    return this.itemsList.reduce(
+      (prev, curr) => prev + curr.price * curr.quantity,
+      0
+    );
   }
 
   // onItemChanged(item: ShopItem) {

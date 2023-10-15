@@ -59,6 +59,7 @@ export class ShopItemsService {
   itemsList$ = (
     this.jhpFirestoreService.getAll() as Observable<ShopItem[]>
   ).pipe(
+    take(1),
     tap((res) => console.warn('results fetched', res)),
     mergeMap((list) => {
       const requests = list.map((item) =>
