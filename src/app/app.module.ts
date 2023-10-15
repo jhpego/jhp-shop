@@ -83,6 +83,11 @@ import { JhpBottomSheetComponent } from './base-components/jhp-bottom-sheet/jhp-
 export class AppModule {}
 
 // required for AOT compilation
+// export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+//   return new TranslateHttpLoader(http, );
+
+// }
+
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
