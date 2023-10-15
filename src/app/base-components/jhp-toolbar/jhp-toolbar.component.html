@@ -10,6 +10,7 @@
   <span>{{ "ShopApp_Label" | translate }}</span>
   <span class="example-spacer"></span>
   <button
+    (longTouch)="onLongClick()"
     mat-icon-button
     class="example-icon favorite-icon"
     aria-label="Example icon-button with heart icon"

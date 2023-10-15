@@ -29,3 +29,26 @@ export class LongPressDirective implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 }
+
+@Directive({
+  selector: '[longTouch]',
+})
+export class LongTouchDirective {
+  @Output() longTouch = new EventEmitter<Event>();
+
+  private timer!: number;
+
+  constructor(private elementRef: ElementRef) {}
+
+  ngOnInit() {
+    this.elementRef.nativeElement.addEventListener('touchstart', () => {
+      this.timer = setTimeout(() => {
+        this.longTouch.emit(new Event('longTouch'));
+      }, 500);
+    });
+
+    this.elementRef.nativeElement.addEventListener('touchend', () => {
+      clearTimeout(this.timer);
+    });
+  }
+}

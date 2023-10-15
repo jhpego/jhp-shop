@@ -31,7 +31,10 @@ import {
   CentsToEuroPipe,
 } from './pipes/categorized.pipe';
 import { JhpCardComponent } from './base-components/jhp-card/jhp-card.component';
-import { LongPressDirective } from './directives/long-press.directive';
+import {
+  LongPressDirective,
+  LongTouchDirective,
+} from './directives/long-press.directive';
 import { JhpToolbarComponent } from './base-components/jhp-toolbar/jhp-toolbar.component';
 import { JhpLanguageSwitcherComponent } from './base-components/jhp-language-switcher/jhp-language-switcher.component';
 import { JhpBottomSheetComponent } from './base-components/jhp-bottom-sheet/jhp-bottom-sheet.component';
@@ -50,6 +53,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AquiredPipe,
     JhpCardComponent,
     LongPressDirective,
+    LongTouchDirective,
     JhpToolbarComponent,
     JhpLanguageSwitcherComponent,
     JhpBottomSheetComponent,
@@ -81,7 +85,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [],

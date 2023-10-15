@@ -13,4 +13,8 @@ export class JhpToolbarComponent {
 
     this.buttonClick.emit(button);
   }
+
+  onLongClick() {
+    alert('long');
+  }
 }
