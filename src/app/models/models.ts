@@ -3,7 +3,7 @@ export interface MenuEntry {
   path: string;
 }
 
-export interface ShopItem {
+export interface ShopItem extends FirestoreItem {
   identifier: string;
   price: number;
   quantity: number;
@@ -47,4 +47,8 @@ export enum ShopListMode {
   Unset,
   Planned,
   Aquired,
+}
+
+export interface FirestoreItem {
+  fireId?: string;
 }

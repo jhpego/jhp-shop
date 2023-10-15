@@ -1,5 +1,8 @@
 <p>home works!</p>
 
-<!-- <div *ngIf="items$ | async as myItems">
+<button (click)="restoreDatabase()">Restore Data</button>
+<button (click)="onActionTest()">Action Test</button>
+
+<div *ngIf="items$ | async as myItems">
   <pre>{{ myItems | json }}</pre>
-</div> -->
+</div>
