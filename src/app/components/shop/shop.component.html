@@ -1,0 +1,14 @@
+<div class="cart">
+  <span>Total: </span>{{ itemsTotal | cents2eur | currency : "EUR" }}
+</div>
+<div class="shop-lists-panel">
+  <app-shop-list
+    [itemslist]="getNotAquired()"
+    [listMode]="ShopListMode.Planned"
+  ></app-shop-list>
+
+  <app-shop-list
+    [listMode]="ShopListMode.Aquired"
+    [itemslist]="getAquired()"
+  ></app-shop-list>
+</div>

@@ -1,0 +1,19 @@
+.items-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.listModeAquired {
+  app-shop-item {
+    filter: grayscale(100%) opacity(80%);
+  }
+}
+
+.category-title {
+  border-bottom: 2px dotted gray;
+}
+
+.list-title {
+  text-align: center;
+}

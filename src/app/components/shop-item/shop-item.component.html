@@ -1,0 +1,37 @@
+<div class="product-item" [class.aquired]="item.aquired">
+  <!-- <img [src]="item.product.preview" class="preview" />
+  <span class="title">{{ item.identifier }}</span
+  ><span>({{ item.quantity }})</span>
+  <span>{{ item.price | cents2eur | currency : "EUR" }}</span> -->
+  <!-- <div><span (click)="add()">+</span><span (click)="remove()">-</span></div> -->
+
+  <button
+    (click)="add()"
+    (longPress)="remove()"
+    class="quantity-badge"
+    mat-mini-fab
+    color="warn"
+  >
+    <span>{{ item.quantity }}</span>
+  </button>
+  <!-- <button longPress (mouseLongPress)="remove()">remove</button> -->
+  <!-- <div
+    (click)="add()"
+    class="quantity-badge"
+    matBadge="{{ item.quantity }}"
+    matBadgePosition="after"
+    matBadgeColor="accent"
+  ></div> -->
+  <app-jhp-card
+    (longPress)="open()"
+    (click)="itemClicked($event)"
+    [imageUrl]="item.product.preview"
+    [textContent]="item.identifier"
+    [cardMode]="CardModeEnum.Label"
+  ></app-jhp-card>
+</div>
+
+<ng-template>
+  <span>edit Shop Item </span>
+  <pre>{{ item | json }}</pre>
+</ng-template>

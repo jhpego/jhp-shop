@@ -1,0 +1,11 @@
+<div class="menu-container">
+  <ng-container *ngFor="let currEntry of menu">
+    <div class="menu-entry" [routerLinkActive]="'is-active'">
+      <a
+        [routerLink]="[currEntry.path]"
+        (click)="navigated.emit(currEntry.identifier)"
+        >{{ currEntry.identifier }}</a
+      >
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,12 @@
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  .menu-entry {
+    &.is-active {
+      // margin-left: 15px;
+      font-weight: bold;
+      color: blue;
+    }
+  }
+}

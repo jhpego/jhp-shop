@@ -1,0 +1,15 @@
+<div [class.listModeAquired]="listMode == ShopListModeEnum.Aquired">
+  <h2 class="list-title">
+    {{ ShopListModeEnum[listMode] + "_Label" | translate }}
+  </h2>
+  <ng-container *ngFor="let currGroup of itemsList | categorized">
+    <h3 class="category-title">
+      {{ ProductCategoryKindEnum[currGroup.category] + "_Label" | translate }}
+    </h3>
+    <div class="items-container">
+      <ng-container *ngFor="let currItem of currGroup.items">
+        <app-shop-item [item]="currItem"></app-shop-item>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

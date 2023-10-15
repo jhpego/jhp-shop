@@ -1,0 +1,13 @@
+.shop-lists-panel {
+  width: 100%;
+  display: flex;
+  > * {
+    width: 50%;
+    border: 1px dotted gray;
+  }
+}
+
+.cart {
+  display: flex;
+  justify-content: flex-end;
+}
