@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +35,7 @@ import { LongPressDirective } from './directives/long-press.directive';
 import { JhpToolbarComponent } from './base-components/jhp-toolbar/jhp-toolbar.component';
 import { JhpLanguageSwitcherComponent } from './base-components/jhp-language-switcher/jhp-language-switcher.component';
 import { JhpBottomSheetComponent } from './base-components/jhp-bottom-sheet/jhp-bottom-sheet.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,12 @@ import { JhpBottomSheetComponent } from './base-components/jhp-bottom-sheet/jhp-
     MatToolbarModule,
     MatSidenavModule,
     MatBottomSheetModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
