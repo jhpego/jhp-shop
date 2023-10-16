@@ -2,6 +2,7 @@ import { Component, ViewChild, inject } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { ToolbarMenuPosition } from './base-components/jhp-toolbar/jhp-toolbar.component';
 // import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 // import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -13,8 +14,9 @@ import { environment } from 'src/environments/environment';
 export class AppComponent {
   // firestore: Firestore = inject(Firestore);
 
-  title = 'jhp-shop';
+  title = 'ShopApp';
   @ViewChild('drawer') drawer!: MatDrawer;
+  MenuPositionEnum = ToolbarMenuPosition;
 
   constructor(
     translate: TranslateService
@@ -35,5 +37,9 @@ export class AppComponent {
 
   onNavigated(menu: string) {
     this.drawer.close();
+  }
+
+  onLongClick() {
+    alert('long');
   }
 }

@@ -1,13 +1,25 @@
 .shop-lists-panel {
   width: 100%;
   display: flex;
-  > * {
-    width: 50%;
-    border: 1px dotted gray;
-  }
+  // > * {
+  //   width: 50%;
+  //   border: 1px dotted gray;
+  // }
 }
 
 .cart {
   display: flex;
   justify-content: flex-end;
+}
+
+.heading {
+  display: flex;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  .title-button {
+    display: flex;
+  }
 }

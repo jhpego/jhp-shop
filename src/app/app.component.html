@@ -1,30 +1,27 @@
-<!-- <header>
-  <app-jhp-toolbar (buttonClick)="onToolbarAction($event)"></app-jhp-toolbar>
-</header>
-<main>
-  <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="over">
-      <p>this is a sidenav drawer</p>
-      <app-nav-main></app-nav-main>
-    </mat-drawer>
-    <router-outlet></router-outlet>
-  </mat-drawer-container>
-</main>
-<footer>Sticky Footer</footer> -->
-
 <div class="wrapper">
   <header>
-    <app-jhp-toolbar (buttonClick)="onToolbarAction($event)"></app-jhp-toolbar>
+    <app-jhp-toolbar
+      (buttonClick)="onToolbarAction($event)"
+      [title]="title"
+      [icon]="'storefront'"
+    >
+    </app-jhp-toolbar>
   </header>
   <main>
     <mat-drawer-container class="example-container" autosize>
-      <mat-drawer #drawer class="example-sidenav" mode="over">
+      <mat-drawer #drawer class="example-sidenav" mode="over" position="end">
         <p>this is a sidenav drawer</p>
-        <app-nav-main (navigated)="onNavigated($event)"></app-nav-main>
         <app-jhp-language-switcher></app-jhp-language-switcher>
       </mat-drawer>
       <router-outlet></router-outlet>
     </mat-drawer-container>
   </main>
-  <footer>Sticky Footer</footer>
+  <footer>
+    <app-jhp-toolbar
+      (buttonClick)="onToolbarAction($event)"
+      [menuPosition]="MenuPositionEnum.Right"
+    >
+      <app-nav-main (navigated)="onNavigated($event)"></app-nav-main>
+    </app-jhp-toolbar>
+  </footer>
 </div>

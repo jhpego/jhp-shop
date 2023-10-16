@@ -1,14 +1,22 @@
-<mat-toolbar>
-  <button
-    (click)="onButtonClick('menu')"
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>{{ "ShopApp_Label" | translate }}</span>
-  <span class="example-spacer"></span>
+<mat-toolbar [class.menuRight]="menuPosition == ToolbarMenuPositionEnum.Right">
+  <div class="menu">
+    <button
+      *ngIf="menuPosition != null"
+      (click)="onButtonClick('menu')"
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="content">
+    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
+    <span *ngIf="title">{{ title + "_Label" | translate }}</span>
+    <div><ng-content></ng-content></div>
+  </div>
+
+  <!-- <span class="example-spacer"></span>
   <button
     (longTouch)="onLongClick()"
     (longPress)="onLongClick()"
@@ -24,5 +32,5 @@
     aria-label="Example icon-button with share icon"
   >
     <mat-icon>share</mat-icon>
-  </button>
+  </button> -->
 </mat-toolbar>

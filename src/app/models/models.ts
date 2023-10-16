@@ -1,6 +1,7 @@
 export interface MenuEntry {
   identifier: string;
   path: string;
+  icon?: string;
 }
 
 export interface ShopItem extends FirestoreItem {

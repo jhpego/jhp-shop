@@ -4,8 +4,18 @@
       <a
         [routerLink]="[currEntry.path]"
         (click)="navigated.emit(currEntry.identifier)"
-        >{{ currEntry.identifier }}</a
       >
+        <button
+          mat-icon-button
+          class="nav-button"
+          aria-label="Example icon-button with share icon"
+        >
+          <mat-icon>{{ currEntry.icon }}</mat-icon>
+          <div *ngIf="false || !currEntry.icon">
+            {{ currEntry.identifier + "_Label" | translate }}
+          </div>
+        </button>
+      </a>
     </div>
   </ng-container>
 </div>

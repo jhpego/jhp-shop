@@ -13,10 +13,12 @@ export class NavMainComponent {
     {
       path: 'home',
       identifier: 'home',
+      icon: 'home',
     },
     {
       path: 'shop',
       identifier: 'shop',
+      icon: 'shopping_cart',
     },
   ];
 }

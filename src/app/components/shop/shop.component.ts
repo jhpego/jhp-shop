@@ -33,6 +33,7 @@ export class ShopComponent {
 
   ShopListMode = ShopListMode;
   itemsList: ShopItem[] = [];
+  isAquiredListSelected: boolean = false;
 
   ngOnInit() {
     this.shopItemsService.itemsList$.subscribe((res) => {
@@ -61,5 +62,9 @@ export class ShopComponent {
 
   getNotAquired() {
     return this.itemsList.filter((item) => !item.aquired);
+  }
+
+  toggleList() {
+    this.isAquiredListSelected = !this.isAquiredListSelected;
   }
 }

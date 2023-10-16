@@ -1,0 +1,17 @@
+mat-toolbar {
+  &.menuRight {
+    flex-direction: row-reverse;
+  }
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  > * {
+    display: flex;
+    justify-content: center;
+  }
+}
