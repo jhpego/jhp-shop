@@ -8,6 +8,7 @@
   <button
     (click)="add()"
     (longPress)="remove()"
+    (longTouch)="remove()"
     class="quantity-badge"
     mat-mini-fab
     color="warn"
@@ -24,6 +25,7 @@
   ></div> -->
   <app-jhp-card
     (longPress)="open()"
+    (longTouch)="open()"
     (click)="itemClicked($event)"
     [imageUrl]="item.product.preview"
     [textContent]="item.identifier"
