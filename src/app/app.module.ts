@@ -62,7 +62,7 @@ import { CategorizedPipe } from './pipes/categorized.pipe';
       },
     }),
     MatSidenavModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideAuth(() => getAuth()),
     // provideFirestore(() => getFirestore()),
 
