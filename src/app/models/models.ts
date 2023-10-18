@@ -1,3 +1,5 @@
+import { FirestoreItem } from '../../../../core/src/public-api';
+
 export interface MenuEntry {
   identifier: string;
   path: string;
@@ -48,8 +50,4 @@ export enum ShopListMode {
   Unset,
   Planned,
   Aquired,
-}
-
-export interface FirestoreItem {
-  fireId?: string;
 }

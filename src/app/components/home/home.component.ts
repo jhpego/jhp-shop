@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ShopItem } from 'src/app/models/models';
-import { JhpFirestoreService } from 'src/app/services/jhp-firestore.service';
+import { JhpFirestoreService } from '../../../../../core/src/public-api';
+import { MockedService } from 'src/app/services/mocked.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,10 @@ export class HomeComponent {
     ShopItem[]
   >;
 
-  constructor(private firestoreService: JhpFirestoreService) {}
+  constructor(
+    private firestoreService: JhpFirestoreService,
+    private mockedService: MockedService
+  ) {}
 
   onActionTest() {
     const newDoc = {
@@ -31,7 +35,7 @@ export class HomeComponent {
   }
 
   restoreDatabase() {
-    this.firestoreService
+    this.mockedService
       .resetData()
       .subscribe((res) => console.warn('after restored'));
   }

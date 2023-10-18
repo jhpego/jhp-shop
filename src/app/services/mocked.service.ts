@@ -1,31 +1,11 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  CollectionReference,
-  DocumentReference,
-  Firestore,
-  addDoc,
-  collection,
-  collectionData,
-  deleteDoc,
-  getDocs,
-} from '@angular/fire/firestore';
+import { Injectable } from '@angular/core';
+import { switchMap } from 'rxjs';
 import {
   ShopItem,
   ProductCategoryKind,
   ProductUnitKind,
-  FirestoreItem,
 } from '../models/models';
-import {
-  Observable,
-  forkJoin,
-  from,
-  mergeMap,
-  of,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
-import { doc } from 'firebase/firestore';
+import { JhpFirestoreService } from '../../../../core/src/public-api';
 
 export const mockedList: ShopItem[] = [
   {
@@ -187,56 +167,14 @@ export const mockedList: ShopItem[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class JhpFirestoreService {
-  firestore: Firestore = inject(Firestore);
-  collectionRef: CollectionReference;
-
-  constructor() {
-    this.collectionRef = collection(this.firestore, 'Cenas');
-  }
-
-  getAll(): Observable<FirestoreItem[]> {
-    return collectionData(this.collectionRef, {
-      idField: 'fireId',
-    });
-  }
-
-  // getAllReferences() {
-  //   getDocs({
-  //     type: 'query',
-  //     converter: CollectionReference,
-  //     firestore: CollectionReference
-  //   }, )
-  // }
-
-  addRecord(newDoc: any) {
-    return from(addDoc(this.collectionRef, <any>newDoc));
-  }
-
-  deleteAll() {
-    return this.getAll().pipe(
-      take(1),
-      switchMap((items) => {
-        const delRequests = items.map((currItem) =>
-          from(deleteDoc(doc(this.collectionRef, currItem.fireId)))
-        );
-        return forkJoin(delRequests);
-      })
-    );
-  }
-
-  bulkAdd(data: any[]) {
-    return of(data).pipe(
-      switchMap((items) => {
-        const addRequests = items.map((currItem) => this.addRecord(currItem));
-        return forkJoin(addRequests);
-      })
-    );
-  }
+export class MockedService {
+  constructor(private firestoreService: JhpFirestoreService) {}
 
   resetData() {
-    return this.deleteAll().pipe(
-      switchMap((deleteResult) => this.bulkAdd(mockedList))
-    );
+    return this.firestoreService
+      .deleteAll()
+      .pipe(
+        switchMap((deleteResult) => this.firestoreService.addBulk(mockedList))
+      );
   }
 }

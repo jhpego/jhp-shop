@@ -10,7 +10,7 @@
           class="nav-button"
           aria-label="Example icon-button with share icon"
         >
-          <mat-icon>{{ currEntry.icon }}</mat-icon>
+          <lib-jhp-icon>{{ currEntry.icon }}</lib-jhp-icon>
           <div *ngIf="false || !currEntry.icon">
             {{ currEntry.identifier + "_Label" | translate }}
           </div>

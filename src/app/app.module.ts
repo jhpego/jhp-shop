@@ -8,37 +8,27 @@ import { environment } from '../environments/environment';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+// import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+// import { provideAuth, getAuth } from '@angular/fire/auth';
+// import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatBadgeModule } from '@angular/material/badge';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatIconModule } from '@angular/material/icon';
+// import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+// import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 import { HomeComponent } from './components/home/home.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { NavMainComponent } from './components/nav-main/nav-main.component';
 import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { ShopItemComponent } from './components/shop-item/shop-item.component';
-import {
-  AquiredPipe,
-  CategorizedPipe,
-  CentsToEuroPipe,
-} from './pipes/categorized.pipe';
-import { JhpCardComponent } from './base-components/jhp-card/jhp-card.component';
-import {
-  LongPressDirective,
-  LongTouchDirective,
-} from './directives/long-press.directive';
-import { JhpToolbarComponent } from './base-components/jhp-toolbar/jhp-toolbar.component';
-import { JhpLanguageSwitcherComponent } from './base-components/jhp-language-switcher/jhp-language-switcher.component';
-import { JhpBottomSheetComponent } from './base-components/jhp-bottom-sheet/jhp-bottom-sheet.component';
+
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { CoreModule } from './../../../core/src/public-api';
+import { CategorizedPipe } from './pipes/categorized.pipe';
 
 @NgModule({
   declarations: [
@@ -49,14 +39,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ShopListComponent,
     ShopItemComponent,
     CategorizedPipe,
-    CentsToEuroPipe,
-    AquiredPipe,
-    JhpCardComponent,
-    LongPressDirective,
-    LongTouchDirective,
-    JhpToolbarComponent,
-    JhpLanguageSwitcherComponent,
-    JhpBottomSheetComponent,
+    // CentsToEuroPipe,
+    // AquiredPipe,
+    // JhpCardComponent,
+    // LongPressDirective,
+    // LongTouchDirective,
+    // JhpToolbarComponent,
+    // JhpLanguageSwitcherComponent,
+    // JhpBottomSheetComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,16 +61,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
         deps: [HttpClient],
       },
     }),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    MatCardModule,
-    MatBadgeModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
     MatSidenavModule,
-    MatBottomSheetModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideAuth(() => getAuth()),
+    // provideFirestore(() => getFirestore()),
+
+    CoreModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

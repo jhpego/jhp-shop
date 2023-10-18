@@ -2,7 +2,7 @@ import { Component, ViewChild, inject } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
-import { ToolbarMenuPosition } from './base-components/jhp-toolbar/jhp-toolbar.component';
+import { ToolbarMenuPosition } from '../../../core/src/public-api';
 // import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 // import { AngularFirestore } from '@angular/fire/firestore';
 

@@ -27,14 +27,14 @@ export class CategorizedPipe implements PipeTransform {
   }
 }
 
-@Pipe({
-  name: 'cents2eur',
-})
-export class CentsToEuroPipe implements PipeTransform {
-  transform(cents: number) {
-    return cents / 100;
-  }
-}
+// @Pipe({
+//   name: 'cents2eur',
+// })
+// export class CentsToEuroPipe implements PipeTransform {
+//   transform(cents: number) {
+//     return cents / 100;
+//   }
+// }
 
 @Pipe({
   name: 'aquired',
