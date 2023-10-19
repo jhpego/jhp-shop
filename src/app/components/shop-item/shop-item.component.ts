@@ -12,8 +12,8 @@ import {
   MatBottomSheet,
   MatBottomSheetConfig,
 } from '@angular/material/bottom-sheet';
-import { ShopItem } from 'src/app/models/models';
-import { CardMode } from '../../../../../core/src/public-api';
+import { ShopItem } from '../../models/models';
+import { CardMode } from '@lib-base';
 
 @Component({
   selector: 'app-shop-item',

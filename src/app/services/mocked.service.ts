@@ -5,8 +5,8 @@ import {
   ProductCategoryKind,
   ProductUnitKind,
 } from '../models/models';
-import { JhpFirestoreService } from '../../../../core/src/public-api';
-
+// import { JhpFirestoreService } from '@lib-base/services/firestore.service.ts';
+import { JhpFirestoreService } from "@lib-base";
 export const mockedList: ShopItem[] = [
   {
     identifier: 'chicken',

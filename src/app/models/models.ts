@@ -1,4 +1,4 @@
-import { FirestoreItem } from '../../../../core/src/public-api';
+import { FirestoreItem } from '@lib-base';
 
 export interface MenuEntry {
   identifier: string;

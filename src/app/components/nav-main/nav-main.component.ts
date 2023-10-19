@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MenuEntry, ShopItem } from '../../models/models';
+import { MenuEntry } from '../../models/models';
 
 @Component({
   selector: 'app-nav-main',

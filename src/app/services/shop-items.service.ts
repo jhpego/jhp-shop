@@ -16,7 +16,7 @@ import {
   tap,
   toArray,
 } from 'rxjs';
-import { JhpFirestoreService } from '../../../../core/src/public-api';
+import { JhpFirestoreService } from '@lib-base';
 
 @Injectable({
   providedIn: 'root',

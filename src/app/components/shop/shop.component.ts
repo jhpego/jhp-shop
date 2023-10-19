@@ -13,8 +13,8 @@ import {
   ShopItem,
   ShopListMode,
 } from '../../models/models';
-import { ShopItemsService } from 'src/app/services/shop-items.service';
 import { ShopListComponent } from '../shop-list/shop-list.component';
+import { ShopItemsService } from '../../services/shop-items.service';
 
 @Component({
   selector: 'app-shop',

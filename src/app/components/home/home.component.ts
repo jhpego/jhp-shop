@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ShopItem } from 'src/app/models/models';
-import { JhpFirestoreService } from '../../../../../core/src/public-api';
-import { MockedService } from 'src/app/services/mocked.service';
+import { ShopItem } from '../../models/models';
+import { MockedService } from '../../services/mocked.service';
+import { JhpFirestoreService } from '@lib-base';
 
 @Component({
   selector: 'app-home',

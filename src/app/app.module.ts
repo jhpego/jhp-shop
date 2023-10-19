@@ -9,7 +9,6 @@ import { environment } from '../environments/environment';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CoreModule } from './../../../core/src/public-api';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 
@@ -20,6 +19,23 @@ import { NavMainComponent } from './components/nav-main/nav-main.component';
 import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { ShopItemComponent } from './components/shop-item/shop-item.component';
 import { CategorizedPipe } from './pipes/categorized.pipe';
+import { BaseModule } from '@lib-base';
+
+export const TRANSLATION_CONFIGURATIONS = {
+  defaultLanguage: 'en',
+  loader: {
+    provide: TranslateLoader,
+    useFactory: function HttpLoaderFactory(
+      http: HttpClient
+    ): TranslateHttpLoader {
+      return new TranslateHttpLoader(
+        http,
+        environment.baseRef + 'assets/i18n/'
+      );
+    },
+    deps: [HttpClient],
+  },
+};
 
 @NgModule({
   declarations: [
@@ -36,15 +52,8 @@ import { CategorizedPipe } from './pipes/categorized.pipe';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    CoreModule.forRoot({
+    TranslateModule.forRoot(TRANSLATION_CONFIGURATIONS),
+    BaseModule.forRoot({
       firebaseConf: environment.firebase,
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
@@ -59,7 +68,3 @@ import { CategorizedPipe } from './pipes/categorized.pipe';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, environment.baseRef + 'assets/i18n/');
-}

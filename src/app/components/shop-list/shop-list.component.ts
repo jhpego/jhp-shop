@@ -11,7 +11,6 @@ import {
   ShopItem,
   ShopListMode,
 } from '../../models/models';
-import { ShopItemsService } from 'src/app/services/shop-items.service';
 
 @Component({
   selector: 'app-shop-list',
