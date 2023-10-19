@@ -15,6 +15,7 @@ import {
 } from '../../models/models';
 import { ShopListComponent } from '../shop-list/shop-list.component';
 import { ShopItemsService } from '../../services/shop-items.service';
+import { AppService } from '../../services/app.service';
 
 @Component({
   selector: 'app-shop',
@@ -26,7 +27,8 @@ export class ShopComponent {
   // @Output() change: EventEmitter<ShopItem> = new EventEmitter();
   constructor(
     private shopItemsService: ShopItemsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private appService: AppService
   ) {}
 
   @ViewChild('aquired') shopListComponentAquired!: ShopListComponent;
@@ -39,6 +41,16 @@ export class ShopComponent {
   ngOnInit() {
     this.shopItemsService.itemsList$.subscribe((res) => {
       this.itemsList = res;
+      this.cdr.detectChanges();
+    });
+    this.appService.swipe$.subscribe((swipe) => {
+      console.warn('swiped: ', swipe);
+
+      if (swipe == Hammer.DIRECTION_LEFT) {
+        this.currMode = ShopListMode.Aquired;
+      } else if (swipe == Hammer.DIRECTION_RIGHT) {
+        this.currMode = ShopListMode.Planned;
+      }
       this.cdr.detectChanges();
     });
   }

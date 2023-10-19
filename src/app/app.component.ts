@@ -3,6 +3,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { ToolbarMenuPosition } from '@lib-base';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { AppService } from './services/app.service';
 // import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 // import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -19,8 +20,9 @@ export class AppComponent {
   MenuPositionEnum = ToolbarMenuPosition;
 
   constructor(
-    translate: TranslateService
+    translate: TranslateService,
     // private firestore: AngularFirestore
+    private appService: AppService
   ) {
     console.warn('is production mode? ', environment.production); // Logs false for development environment
 
@@ -41,5 +43,15 @@ export class AppComponent {
 
   onLongClick() {
     alert('long');
+  }
+
+  swipeLeft() {
+    console.warn('left');
+    this.appService.swipeLeft();
+  }
+
+  swipeRight() {
+    console.warn('right');
+    this.appService.swipeRight();
   }
 }

@@ -13,7 +13,9 @@
         <p>this is a sidenav drawer</p>
         <app-jhp-language-switcher></app-jhp-language-switcher>
       </mat-drawer>
-      <router-outlet></router-outlet>
+      <div (swipeleft)="swipeLeft()" (swiperight)="swipeRight()">
+        <router-outlet></router-outlet>
+      </div>
     </mat-drawer-container>
   </main>
   <footer>
