@@ -11,7 +11,8 @@ export interface ShopItem extends FirestoreItem {
   price: number;
   quantity: number;
   product: ShopProduct;
-  aquired: boolean;
+  status: ShopListMode;
+  // aquired: boolean;
 }
 
 export interface ShopProduct {
@@ -50,4 +51,5 @@ export enum ShopListMode {
   Unset,
   Planned,
   Aquired,
+  Discarded,
 }

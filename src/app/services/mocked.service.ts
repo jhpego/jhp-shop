@@ -4,15 +4,16 @@ import {
   ShopItem,
   ProductCategoryKind,
   ProductUnitKind,
+  ShopListMode,
 } from '../models/models';
 // import { JhpFirestoreService } from '@lib-base/services/firestore.service.ts';
-import { JhpFirestoreService } from "@lib-base";
+import { JhpFirestoreService } from '@lib-base';
 export const mockedList: ShopItem[] = [
   {
     identifier: 'chicken',
     price: 399,
     quantity: 2,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Meat,
       identifier: 'chicken',
@@ -23,7 +24,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'apples',
     price: 449,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.VegetablesAndFruits,
       identifier: 'apples',
@@ -34,7 +35,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'shampoo',
     price: 449,
     quantity: 1,
-    aquired: true,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.HigyeneHealthAndCosmetics,
       identifier: 'shampoo',
@@ -45,7 +46,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'tuna',
     price: 80,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Conservants,
       identifier: 'tuna',
@@ -56,7 +57,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'bananas',
     price: 129,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.VegetablesAndFruits,
       identifier: 'bananas',
@@ -67,7 +68,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'milk',
     price: 78,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Dairy,
       identifier: 'milk',
@@ -78,7 +79,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'yogurt',
     price: 160,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Dairy,
       identifier: 'yogurt',
@@ -89,7 +90,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'eggs',
     price: 220,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Dairy,
       identifier: 'eggs',
@@ -100,7 +101,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'noodles',
     price: 64,
     quantity: 1,
-    aquired: true,
+    status: ShopListMode.Aquired,
     product: {
       category: ProductCategoryKind.Pasta,
       identifier: 'noodles',
@@ -111,7 +112,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'spaghetti',
     price: 100,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Discarded,
     product: {
       category: ProductCategoryKind.Pasta,
       identifier: 'spaghetti',
@@ -122,7 +123,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'gobbetti',
     price: 90,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Pasta,
       identifier: 'gobbetti',
@@ -133,7 +134,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'bread',
     price: 90,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Bakery,
       identifier: 'bread',
@@ -144,7 +145,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'steak',
     price: 399,
     quantity: 1,
-    aquired: false,
+    status: ShopListMode.Planned,
     product: {
       category: ProductCategoryKind.Meat,
       identifier: 'steak',
@@ -155,7 +156,7 @@ export const mockedList: ShopItem[] = [
     identifier: 'breaded fish',
     price: 499,
     quantity: 1,
-    aquired: true,
+    status: ShopListMode.Aquired,
     product: {
       category: ProductCategoryKind.Frozen,
       identifier: 'breaded fish',

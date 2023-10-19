@@ -34,6 +34,7 @@ export class ShopComponent {
   ShopListMode = ShopListMode;
   itemsList: ShopItem[] = [];
   isAquiredListSelected: boolean = false;
+  currMode: ShopListMode = ShopListMode.Planned;
 
   ngOnInit() {
     this.shopItemsService.itemsList$.subscribe((res) => {
@@ -57,14 +58,24 @@ export class ShopComponent {
   // }
 
   getAquired() {
-    return this.itemsList.filter((item) => item.aquired);
+    return this.itemsList.filter((item) => item.status == ShopListMode.Aquired);
   }
 
-  getNotAquired() {
-    return this.itemsList.filter((item) => !item.aquired);
+  getPlanned() {
+    return this.itemsList.filter((item) => item.status == ShopListMode.Planned);
+  }
+
+  getDiscarded() {
+    return this.itemsList.filter(
+      (item) => item.status == ShopListMode.Discarded
+    );
   }
 
   toggleList() {
     this.isAquiredListSelected = !this.isAquiredListSelected;
+  }
+
+  changeMode(mode: ShopListMode) {
+    this.currMode = mode;
   }
 }

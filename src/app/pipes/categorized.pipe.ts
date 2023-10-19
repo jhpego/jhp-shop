@@ -1,5 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ItemsGroup, ProductCategoryKind, ShopItem } from '../models/models';
+import {
+  ItemsGroup,
+  ProductCategoryKind,
+  ShopItem,
+  ShopListMode,
+} from '../models/models';
 
 export type Intermediate = {
   [key: string]: ShopItem[];
@@ -41,6 +46,6 @@ export class CategorizedPipe implements PipeTransform {
 })
 export class AquiredPipe implements PipeTransform {
   transform(items: ShopItem[], aquired: boolean = true) {
-    return items.filter((item) => item.aquired == aquired);
+    return items.filter((item) => item.status == ShopListMode.Aquired);
   }
 }

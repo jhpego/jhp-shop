@@ -87,11 +87,11 @@ export class ShopItemsService {
     return this.itemsList;
   }
 
-  getAquired() {
-    return this.itemsList.filter((item) => item.aquired);
-  }
+  // getAquired() {
+  //   return this.itemsList.filter((item) => item.aquired);
+  // }
 
-  getNotAquired() {
-    return this.itemsList.filter((item) => !item.aquired);
-  }
+  // getNotAquired() {
+  //   return this.itemsList.filter((item) => !item.aquired);
+  // }
 }

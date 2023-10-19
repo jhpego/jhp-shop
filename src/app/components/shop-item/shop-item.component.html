@@ -1,4 +1,7 @@
-<div class="product-item" [class.aquired]="item.aquired">
+<div
+  class="product-item"
+  [class.aquired]="item.status === ShopListMode.Aquired"
+>
   <!-- <img [src]="item.product.preview" class="preview" />
   <span class="title">{{ item.identifier }}</span
   ><span>({{ item.quantity }})</span>

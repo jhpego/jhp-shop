@@ -12,7 +12,7 @@ import {
   MatBottomSheet,
   MatBottomSheetConfig,
 } from '@angular/material/bottom-sheet';
-import { ShopItem } from '../../models/models';
+import { ShopItem, ShopListMode } from '../../models/models';
 import { CardMode } from '@lib-base';
 
 @Component({
@@ -24,6 +24,7 @@ import { CardMode } from '@lib-base';
 export class ShopItemComponent {
   @Input()
   item!: ShopItem;
+  ShopListMode = ShopListMode;
   // @Output() change: EventEmitter<ShopItem> = new EventEmitter();
 
   constructor(
@@ -34,7 +35,10 @@ export class ShopItemComponent {
   CardModeEnum = CardMode;
 
   itemClicked(event: any) {
-    this.item.aquired = !this.item.aquired;
+    this.item.status =
+      this.item.status === ShopListMode.Planned
+        ? ShopListMode.Aquired
+        : ShopListMode.Planned;
     // this.change.emit(this.item);
   }
 

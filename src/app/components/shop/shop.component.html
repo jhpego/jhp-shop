@@ -1,5 +1,5 @@
 <div class="heading">
-  <button
+  <!-- <button
     (click)="toggleList()"
     mat-icon-button
     class="example-icon favorite-icon"
@@ -13,7 +13,10 @@
         (isAquiredListSelected ? "Aquired_Label" : "Planned_Label") | translate
       }}</span>
     </div>
-  </button>
+  </button> -->
+  <ng-container *ngFor="let mode of ShopListMode | enumToArray; let i = index">
+    <button (click)="changeMode(i)">{{ mode }}</button>
+  </ng-container>
 
   <span
     ><span>Total: </span>{{ itemsTotal | cents2eur | currency : "EUR" }}</span
@@ -22,15 +25,22 @@
 
 <div class="shop-lists-panel">
   <app-shop-list
-    *ngIf="!isAquiredListSelected"
-    [itemslist]="getNotAquired()"
+    *ngIf="currMode == ShopListMode.Planned"
+    [itemslist]="getPlanned()"
     [listMode]="ShopListMode.Planned"
   ></app-shop-list>
 
   <app-shop-list
     #aquired
-    *ngIf="isAquiredListSelected"
+    *ngIf="currMode == ShopListMode.Aquired"
     [listMode]="ShopListMode.Aquired"
     [itemslist]="getAquired()"
+  ></app-shop-list>
+
+  <app-shop-list
+    #discarded
+    *ngIf="currMode == ShopListMode.Discarded"
+    [listMode]="ShopListMode.Discarded"
+    [itemslist]="getDiscarded()"
   ></app-shop-list>
 </div>
