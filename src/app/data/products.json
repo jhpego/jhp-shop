@@ -1,0 +1,202 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "identifier": "Apple",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 2,
+            "identifier": "Banana",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 3,
+            "identifier": "Orange",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 4,
+            "identifier": "Grapefruit",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 5,
+            "identifier": "Tomato",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 6,
+            "identifier": "Cucumber",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 7,
+            "identifier": "Lettuce",
+            "unit": "head",
+            "category": 2
+        },
+        {
+            "id": 8,
+            "identifier": "Carrot",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 9,
+            "identifier": "Potato",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 10,
+            "identifier": "Onion",
+            "unit": "kilogram",
+            "category": 2
+        },
+        {
+            "id": 11,
+            "identifier": "Garlic",
+            "unit": "unit",
+            "category": 2
+        },
+        {
+            "id": 12,
+            "identifier": "Ginger",
+            "unit": "gram",
+            "category": 2
+        },
+        {
+            "id": 13,
+            "identifier": "Milk",
+            "unit": "liter",
+            "category": 5
+        },
+        {
+            "id": 14,
+            "identifier": "Eggs",
+            "unit": "dozen",
+            "category": 5
+        },
+        {
+            "id": 15,
+            "identifier": "Butter",
+            "unit": "gram",
+            "category": 5
+        },
+        {
+            "id": 16,
+            "identifier": "Cheese",
+            "unit": "kilogram",
+            "category": 5
+        },
+        {
+            "id": 17,
+            "identifier": "Yogurt",
+            "unit": "gram",
+            "category": 5
+        },
+        {
+            "id": 18,
+            "identifier": "Bread",
+            "unit": "unit",
+            "category": 0
+        },
+        {
+            "id": 19,
+            "identifier": "Cake",
+            "unit": "slice",
+            "category": 0
+        },
+        {
+            "id": 20,
+            "identifier": "Cookies",
+            "unit": "dozen",
+            "category": 0
+        },
+        {
+            "id": 21,
+            "identifier": "Rice",
+            "unit": "kilogram",
+            "category": 8
+        },
+        {
+            "id": 22,
+            "identifier": "Pasta",
+            "unit": "kilogram",
+            "category": 8
+        },
+        {
+            "id": 23,
+            "identifier": "Beans",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 24,
+            "identifier": "Canned Tomatoes",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 25,
+            "identifier": "Tuna",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 26,
+            "identifier": "Chicken",
+            "unit": "kilogram",
+            "category": 3
+        },
+        {
+            "id": 27,
+            "identifier": "Noodles",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 28,
+            "identifier": "Spaguetti",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 29,
+            "identifier": "Steak",
+            "unit": "unit",
+            "category": 3
+        },
+        {
+            "id": 30,
+            "identifier": "breaded fish",
+            "unit": "unit",
+            "category": 8
+        },
+        {
+            "id": 31,
+            "identifier": "shampoo",
+            "unit": "unit",
+            "category": 11
+        },
+        {
+            "id": 32,
+            "identifier": "juice",
+            "unit": "unit",
+            "category": 1
+        },
+        {
+            "id": 40,
+            "identifier": "Unknown",
+            "unit": "unit",
+            "category": 1
+        }
+    ]
+}

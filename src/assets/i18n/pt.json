@@ -9,5 +9,8 @@
     "Bakery_Label": "Padaria",
     "Meat_Label": "Carne",
     "HigyeneHealthAndCosmetics_Label": "Higiene, Saúde e Cosméticos",
-    "Conservants_Label": "Conservas"
+    "Conservants_Label": "Conservas",
+    "Pantry_Label": "Despensa",
+    "Beverages_Label": "Bebidas",
+    "PersonalCare_Label": "Cuidados Pessoais"
 }

@@ -11,6 +11,7 @@ export interface ShopItem extends FirestoreItem {
   price: number;
   quantity: number;
   product: ShopProduct;
+  productId: number;
   status: ShopListMode;
   // aquired: boolean;
 }
@@ -30,16 +31,21 @@ export enum ProductUnitKind {
 }
 
 export enum ProductCategoryKind {
-  HigyeneHealthAndCosmetics,
-  Meat,
-  Fish,
-  VegetablesAndFruits,
-  Conservants,
-  Candys,
-  Dairy,
-  Pasta,
   Bakery,
+  Beverages,
+  VegetablesAndFruits,
+  Meat,
+  Seafood,
+  Dairy,
+  Deli,
   Frozen,
+  Pantry,
+  Snacks,
+  Candy,
+  PersonalCare,
+  Household,
+  PetSupplies,
+  CannedGoods,
 }
 
 export interface ItemsGroup {

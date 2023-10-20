@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ShopItem } from '../../models/models';
 import { MockedService } from '../../services/mocked.service';
 import { JhpFirestoreService } from '@lib-base';
+import { ShopItemsService } from '../../services/shop-items.service';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +11,12 @@ import { JhpFirestoreService } from '@lib-base';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  items$: Observable<any[]> = this.firestoreService.getAll() as Observable<
-    ShopItem[]
-  >;
+  items$: Observable<any[]> = this.shopItemsService.getItemsCombined();
 
   constructor(
     private firestoreService: JhpFirestoreService,
-    private mockedService: MockedService
+    private mockedService: MockedService,
+    private shopItemsService: ShopItemsService
   ) {}
 
   onActionTest() {
@@ -32,6 +32,12 @@ export class HomeComponent {
     //   .subscribe((res) => console.warn('all fetched', res));
 
     // this.firestoreService.importData();
+  }
+
+  addBulk() {
+    this.mockedService
+      .addMocked()
+      .subscribe((res) => console.warn('after bulk add'));
   }
 
   restoreDatabase() {

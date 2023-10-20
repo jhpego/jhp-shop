@@ -9,5 +9,8 @@
     "Bakery_Label": "Bakery",
     "Meat_Label": "Meat",
     "HigyeneHealthAndCosmetics_Label": "Higyene, Health and Cosmetics",
-    "Conservants_Label": "Conservants"
+    "Conservants_Label": "Conservants",
+    "Pantry_Label": "Pantry",
+    "Beverages_Label": "Beverages",
+    "PersonalCare_Label": "Personal Care"
 }

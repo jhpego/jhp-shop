@@ -7,6 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import {
   Observable,
+  filter,
   from,
   lastValueFrom,
   map,
@@ -17,6 +18,7 @@ import {
   toArray,
 } from 'rxjs';
 import { JhpFirestoreService } from '@lib-base';
+import products from './../data/products.json';
 
 @Injectable({
   providedIn: 'root',
@@ -56,26 +58,74 @@ export class ShopItemsService {
 
   itemsList: ShopItem[] = []; // = mockedList;
 
-  itemsList$ = (
-    this.jhpFirestoreService.getAll() as Observable<ShopItem[]>
-  ).pipe(
-    take(1),
-    tap((res) => console.warn('results fetched', res)),
-    mergeMap((list) => {
-      const requests = list.map((item) =>
-        this.getImageFromIdentifier(item.product.identifier).pipe(
-          mergeMap((propertyData) => {
-            item.product.preview = propertyData;
-            return of(item);
-          })
+  // itemsList$ = (
+  //   this.jhpFirestoreService.getAll() as Observable<ShopItem[]>
+  // ).pipe(
+  //   take(1),
+  //   tap((res) => console.warn('results fetched', res)),
+  //   mergeMap((list) => {
+  //     const requests = list.map((item) =>
+  //       this.getImageFromIdentifier(item.product.identifier).pipe(
+  //         mergeMap((propertyData) => {
+  //           item.product.preview = propertyData;
+  //           return of(item);
+  //         })
+  //       )
+  //     );
+  //     return from(requests).pipe(
+  //       mergeMap((item) => item),
+  //       toArray()
+  //     );
+  //   })
+  // );
+  itemsList$ = this.getItemsCombined();
+
+  getProducts() {
+    const mockedProducts = products.data.map((product) => ({
+      ...product,
+      preview: '',
+      category: product.category as ProductCategoryKind,
+    }));
+    return of(mockedProducts).pipe(
+      mergeMap((list) => {
+        const requests = list.map((product) =>
+          this.getImageFromIdentifier(product.identifier).pipe(
+            mergeMap((propertyData) => {
+              product.preview = propertyData;
+              return of(product);
+            })
+          )
+        );
+        return from(requests).pipe(
+          mergeMap((item) => item),
+          toArray()
+        );
+      })
+    );
+  }
+
+  getItems() {
+    return this.jhpFirestoreService.getAll() as Observable<ShopItem[]>;
+  }
+
+  getItemsCombined(): Observable<any[]> {
+    const items$ = this.getItems();
+    const productsData$ = this.getProducts();
+    return items$.pipe(
+      mergeMap((items) =>
+        productsData$.pipe(
+          map((products) =>
+            items.map((item) => {
+              const product = products.find(
+                (product) => product.id === item.productId
+              );
+              return { ...item, product };
+            })
+          )
         )
-      );
-      return from(requests).pipe(
-        mergeMap((item) => item),
-        toArray()
-      );
-    })
-  );
+      )
+    );
+  }
 
   setList() {
     this.itemsList$.subscribe((res) => {
@@ -86,12 +136,4 @@ export class ShopItemsService {
   getList() {
     return this.itemsList;
   }
-
-  // getAquired() {
-  //   return this.itemsList.filter((item) => item.aquired);
-  // }
-
-  // getNotAquired() {
-  //   return this.itemsList.filter((item) => !item.aquired);
-  // }
 }
