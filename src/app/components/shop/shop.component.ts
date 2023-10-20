@@ -16,6 +16,7 @@ import {
 import { ShopListComponent } from '../shop-list/shop-list.component';
 import { ShopItemsService } from '../../services/shop-items.service';
 import { AppService } from '../../services/app.service';
+import { SwipablePageComponent } from '../../pipes/swipe-page.directive';
 
 @Component({
   selector: 'app-shop',
@@ -23,71 +24,52 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./shop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopComponent {
+export class ShopComponent extends SwipablePageComponent {
   // @Output() change: EventEmitter<ShopItem> = new EventEmitter();
   constructor(
     private shopItemsService: ShopItemsService,
-    private cdr: ChangeDetectorRef,
-    private appService: AppService
-  ) {}
+    public override cdr: ChangeDetectorRef,
+    appService: AppService
+  ) {
+    super(appService, cdr);
+  }
 
   @ViewChild('aquired') shopListComponentAquired!: ShopListComponent;
 
   ShopListMode = ShopListMode;
   itemsList: ShopItem[] = [];
-  isAquiredListSelected: boolean = false;
-  currMode: ShopListMode = ShopListMode.Planned;
 
-  ngOnInit() {
+  override ngOnInit() {
+    super.ngOnInit();
+
+    this.pages = [
+      ShopListMode.Discarded,
+      ShopListMode.Planned,
+      ShopListMode.Aquired,
+    ];
+
+    this.currPageIdx = 1;
+
     this.shopItemsService.itemsList$.subscribe((res) => {
       this.itemsList = res;
-      this.cdr.detectChanges();
-    });
-    this.appService.swipe$.subscribe((swipe) => {
-      console.warn('swiped: ', swipe);
-
-      if (swipe == Hammer.DIRECTION_LEFT) {
-        this.currMode = ShopListMode.Aquired;
-      } else if (swipe == Hammer.DIRECTION_RIGHT) {
-        this.currMode = ShopListMode.Planned;
-      }
       this.cdr.detectChanges();
     });
   }
 
   public get itemsTotal() {
     console.warn('calc shop total: ');
-    if (this.shopListComponentAquired != undefined) {
-      return this.shopListComponentAquired.total;
-    }
+    return this.getFilteredItems(ShopListMode.Aquired).reduce(
+      (prev, curr) => prev + curr.price * curr.quantity,
+      0
+    );
     return 0;
   }
 
-  // onItemChanged(item: ShopItem) {
-  //   console.warn('item changed on shop');
-  //   this.cdr.detectChanges();
-  //   // this.change.emit(item);
-  // }
-
-  getAquired() {
-    return this.itemsList.filter((item) => item.status == ShopListMode.Aquired);
+  getFilteredItems(mode: ShopListMode) {
+    return this.itemsList.filter((item) => item.status == mode);
   }
 
-  getPlanned() {
-    return this.itemsList.filter((item) => item.status == ShopListMode.Planned);
-  }
-
-  getDiscarded() {
-    return this.itemsList.filter(
-      (item) => item.status == ShopListMode.Discarded
-    );
-  }
-
-  toggleList() {
-    this.isAquiredListSelected = !this.isAquiredListSelected;
-  }
-
-  changeMode(mode: ShopListMode) {
-    this.currMode = mode;
+  changeMode(modeIdx: any) {
+    this.currPageIdx = modeIdx;
   }
 }

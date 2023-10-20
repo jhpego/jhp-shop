@@ -25,6 +25,7 @@ import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { ShopItemComponent } from './components/shop-item/shop-item.component';
 import { CategorizedPipe } from './pipes/categorized.pipe';
 import { BaseModule } from '@lib-base';
+import { SwipablePageComponent } from './pipes/swipe-page.directive';
 
 export const TRANSLATION_CONFIGURATIONS = {
   defaultLanguage: 'en',
@@ -59,6 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     ShopListComponent,
     ShopItemComponent,
     CategorizedPipe,
+    SwipablePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,9 +68,24 @@ export class MyHammerConfig extends HammerGestureConfig {
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TranslateModule.forRoot(TRANSLATION_CONFIGURATIONS),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: function HttpLoaderFactory(
+          http: HttpClient
+        ): TranslateHttpLoader {
+          return new TranslateHttpLoader(
+            http,
+            environment.baseRef + 'assets/i18n/'
+          );
+        },
+        deps: [HttpClient],
+      },
+    }),
     BaseModule.forRoot({
       firebaseConf: environment.firebase,
+      basehref: environment.baseRef,
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

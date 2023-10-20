@@ -1,21 +1,12 @@
 <div class="heading">
-  <!-- <button
-    (click)="toggleList()"
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <div class="title-button">
-      <lib-jhp-icon>{{
-        isAquiredListSelected ? "shopping_cart_checkout" : "shopping_cart"
-      }}</lib-jhp-icon>
-      <span>{{
-        (isAquiredListSelected ? "Aquired_Label" : "Planned_Label") | translate
-      }}</span>
-    </div>
-  </button> -->
-  <ng-container *ngFor="let mode of ShopListMode | enumToArray; let i = index">
+  <!-- <ng-container *ngFor="let mode of ShopListMode | enumToArray; let i = index">
     <button (click)="changeMode(i)">{{ mode }}</button>
+  </ng-container> -->
+
+  <ng-container *ngFor="let page of pages; let i = index">
+    <div class="modeButton" [class.active]="i === currPageIdx">
+      <button (click)="changeMode(i)">{{ ShopListMode[page] }}</button>
+    </div>
   </ng-container>
 
   <span
@@ -23,24 +14,26 @@
   >
 </div>
 
+<!-- <pre>{{ currPage | json }}</pre> -->
+
 <div class="shop-lists-panel">
   <app-shop-list
-    *ngIf="currMode == ShopListMode.Planned"
-    [itemslist]="getPlanned()"
+    *ngIf="currPage == ShopListMode.Planned"
+    [itemslist]="getFilteredItems(ShopListMode.Planned)"
     [listMode]="ShopListMode.Planned"
   ></app-shop-list>
 
   <app-shop-list
     #aquired
-    *ngIf="currMode == ShopListMode.Aquired"
+    *ngIf="currPage == ShopListMode.Aquired"
     [listMode]="ShopListMode.Aquired"
-    [itemslist]="getAquired()"
+    [itemslist]="getFilteredItems(ShopListMode.Aquired)"
   ></app-shop-list>
 
   <app-shop-list
     #discarded
-    *ngIf="currMode == ShopListMode.Discarded"
+    *ngIf="currPage == ShopListMode.Discarded"
     [listMode]="ShopListMode.Discarded"
-    [itemslist]="getDiscarded()"
+    [itemslist]="getFilteredItems(ShopListMode.Discarded)"
   ></app-shop-list>
 </div>
