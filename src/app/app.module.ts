@@ -26,6 +26,8 @@ import { ShopItemComponent } from './components/shop-item/shop-item.component';
 import { CategorizedPipe } from './pipes/categorized.pipe';
 import { BaseModule } from '@lib-base';
 import { SwipablePageComponent } from './pipes/swipe-page.directive';
+import { EditShopItemComponent } from './components/edit-shop-item/edit-shop-item.component';
+import { ShopBottomSheetComponent } from './components/shop-bottom-sheet/shop-bottom-sheet.component';
 
 export const TRANSLATION_CONFIGURATIONS = {
   defaultLanguage: 'en',
@@ -61,6 +63,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     ShopItemComponent,
     CategorizedPipe,
     SwipablePageComponent,
+    EditShopItemComponent,
+    ShopBottomSheetComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import {
 } from '@angular/material/bottom-sheet';
 import { ShopItem, ShopListMode } from '../../models/models';
 import { CardMode } from '@lib-base';
+import { ShopBottomSheetComponent } from '../shop-bottom-sheet/shop-bottom-sheet.component';
 
 @Component({
   selector: 'app-shop-item',
@@ -55,8 +56,12 @@ export class ShopItemComponent {
   @ViewChild(TemplateRef) template!: TemplateRef<any>;
 
   open(config?: MatBottomSheetConfig) {
-    return this.bottomSheet.open(this.template, {
+    return this.bottomSheet.open(ShopBottomSheetComponent, {
       panelClass: 'full-width',
+      data: {
+        item: this.item,
+        cenas: '',
+      },
     });
   }
 }
