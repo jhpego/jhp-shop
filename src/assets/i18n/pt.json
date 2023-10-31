@@ -12,5 +12,8 @@
     "Conservants_Label": "Conservas",
     "Pantry_Label": "Despensa",
     "Beverages_Label": "Bebidas",
-    "PersonalCare_Label": "Cuidados Pessoais"
+    "PersonalCare_Label": "Cuidados Pessoais",
+    "Price_Label": "Preço",
+    "Identifier_Label": "Identificador",
+    "Category_Label": "Categoria"
 }

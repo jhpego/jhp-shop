@@ -1,8 +1,18 @@
-<pre>{{ shopItem | json }}</pre>
 <form [formGroup]="formShopItem">
-  <label for="first-name">First Name: </label>
+  <!-- <label for="first-name">First Name: </label>
   <input id="first-name" type="text" formControlName="firstName" />
 
   <label for="last-name">Last Name: </label>
-  <input id="last-name" type="text" formControlName="lastName" />
+  <input id="last-name" type="text" formControlName="lastName" /> -->
+  <lib-base-dropdown
+    [options$]="categories$"
+    [controlPath]="'product/category'"
+    label="Category"
+  ></lib-base-dropdown>
+  <lib-base-input [controlPath]="'price'" label="Price"></lib-base-input>
+  <lib-base-input
+    [controlPath]="'identifier'"
+    label="Identifier"
+  ></lib-base-input>
 </form>
+<pre>{{ shopItem | json }}</pre>
