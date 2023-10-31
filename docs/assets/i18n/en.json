@@ -1,0 +1,19 @@
+{
+    "ShopApp_Label": "Shop App",
+    "Planned_Label": "Planned",
+    "Aquired_Label": "Aquired",
+    "Pasta_Label": "Pasta",
+    "Frozen_Label": "Frozen",
+    "Dairy_Label": "Dairy",
+    "VegetablesAndFruits_Label": "Vegetables and Fruits",
+    "Bakery_Label": "Bakery",
+    "Meat_Label": "Meat",
+    "HigyeneHealthAndCosmetics_Label": "Higyene, Health and Cosmetics",
+    "Conservants_Label": "Conservants",
+    "Pantry_Label": "Pantry",
+    "Beverages_Label": "Beverages",
+    "PersonalCare_Label": "Personal Care",
+    "Price_Label": "Price",
+    "Identifier_Label": "Identifier",
+    "Category_Label": "Category"
+}
