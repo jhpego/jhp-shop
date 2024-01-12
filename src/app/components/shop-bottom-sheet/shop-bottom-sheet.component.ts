@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { ShopItem } from '../../models/models';
 
 @Component({
@@ -8,5 +11,15 @@ import { ShopItem } from '../../models/models';
   styleUrls: ['./shop-bottom-sheet.component.scss'],
 })
 export class ShopBottomSheetComponent {
-  constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: { item: ShopItem }) {}
+  constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { item: ShopItem },
+
+    private bottomsheet: MatBottomSheetRef<ShopBottomSheetComponent>
+  ) {}
+
+  onChanged(shopItem: ShopItem) {
+    console.warn('changed edit shop', shopItem);
+
+    this.bottomsheet.dismiss(shopItem);
+  }
 }

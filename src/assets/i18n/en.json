@@ -15,5 +15,6 @@
     "PersonalCare_Label": "Personal Care",
     "Price_Label": "Price",
     "Identifier_Label": "Identifier",
-    "Category_Label": "Category"
+    "Category_Label": "Category",
+    "Product_Label": "Product"
 }

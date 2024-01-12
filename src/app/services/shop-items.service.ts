@@ -7,6 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import {
   Observable,
+  Subject,
   filter,
   from,
   lastValueFrom,
@@ -30,6 +31,8 @@ export class ShopItemsService {
   ) {
     this.setList();
   }
+
+  shopItemUpdated$: Subject<ShopItem> = new Subject<ShopItem>();
 
   getImageFromIdentifier(identifier: string): Observable<string> {
     const url = `https://pixabay.com/api/?key=39989250-bc0fc5f5c826b727960dabdf2&q=${identifier}}&image_type=vector`;

@@ -1,1 +1,4 @@
-<app-edit-shop-item [shopItem]="data.item"></app-edit-shop-item>
+<app-edit-shop-item
+  [shopItem]="data.item"
+  (changed)="onChanged($event)"
+></app-edit-shop-item>

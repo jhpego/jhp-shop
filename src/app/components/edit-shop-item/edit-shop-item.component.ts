@@ -1,9 +1,17 @@
-import { Component, Input } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProductCategoryKind, ShopItem } from '../../models/models';
 import { EnumToArrayPipe } from 'libs/base/src/pipes/currency.pipe';
 import { map, of, tap } from 'rxjs';
 import { FormEngineService } from 'libs/base/src/services/form-engine.service';
+import { ShopItemsService } from '../../services/shop-items.service';
+import { UtilitiesService } from 'libs/base/src/services/utilities.service';
 
 @Component({
   selector: 'app-edit-shop-item',
@@ -13,11 +21,15 @@ import { FormEngineService } from 'libs/base/src/services/form-engine.service';
 })
 export class EditShopItemComponent {
   @Input() shopItem!: ShopItem;
+  @Output() changed: EventEmitter<ShopItem> = new EventEmitter<ShopItem>();
 
   constructor(
     private fb: FormBuilder,
     private enumToarray: EnumToArrayPipe,
-    private formEngineService: FormEngineService
+    private formEngineService: FormEngineService,
+    private shopItemsService: ShopItemsService,
+    private cdr: ChangeDetectorRef,
+    private utilitiesService: UtilitiesService
   ) {}
 
   formShopItem!: FormGroup;
@@ -46,15 +58,19 @@ export class EditShopItemComponent {
     tap((items) => console.warn('items', items))
   );
 
+  products$ = this.shopItemsService
+    .getProducts()
+    .pipe(tap((products) => console.warn('products', products)));
+
   ngOnInit() {
     const formProps: any = {
-      identifier: [''],
+      title: [''],
       // lastName: [''],
       // categoryId: [0],
       price: [0],
       product: this.fb.group({
         category: [3],
-        // city: [''],
+        id: [0],
         // state: [''],
         // zip: [''],
       }),
@@ -63,5 +79,22 @@ export class EditShopItemComponent {
     this.formShopItem = this.formEngineService.createForm(formProps);
 
     this.updateItem();
+  }
+
+  onSubmit(formShopItem: FormGroup) {
+    console.warn('submit', formShopItem);
+    // this.shopItem = this.formShopItem.value;
+
+    // this.shopItem.title = this.formShopItem.value.title;
+
+    this.utilitiesService.cloneObjectValues(
+      this.shopItem,
+      this.formShopItem.value,
+      true
+    );
+
+    this.changed.emit(this.shopItem);
+    this.shopItemsService.shopItemUpdated$.next(this.shopItem);
+    this.cdr.detectChanges();
   }
 }

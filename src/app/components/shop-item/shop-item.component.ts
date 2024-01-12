@@ -15,6 +15,8 @@ import {
 import { ShopItem, ShopListMode } from '../../models/models';
 import { CardMode } from '@lib-base';
 import { ShopBottomSheetComponent } from '../shop-bottom-sheet/shop-bottom-sheet.component';
+import { ShopItemsService } from '../../services/shop-items.service';
+import { UtilitiesService } from 'libs/base/src/services/utilities.service';
 
 @Component({
   selector: 'app-shop-item',
@@ -26,12 +28,22 @@ export class ShopItemComponent {
   @Input()
   item!: ShopItem;
   ShopListMode = ShopListMode;
-  // @Output() change: EventEmitter<ShopItem> = new EventEmitter();
+  @Output() itemChange: EventEmitter<ShopItem> = new EventEmitter<ShopItem>();
 
   constructor(
     private cdr: ChangeDetectorRef,
-    readonly bottomSheet: MatBottomSheet
+    readonly bottomSheet: MatBottomSheet,
+    private shopItemsService: ShopItemsService,
+    private utilitiesService: UtilitiesService
   ) {}
+
+  ngOnInit() {
+    // this.shopItemsService.shopItemUpdated$.subscribe((shopItem: ShopItem) => {
+    //   debugger;
+    //   this.item = shopItem;
+    //   this.cdr.detectChanges();
+    // });
+  }
 
   CardModeEnum = CardMode;
 
@@ -56,12 +68,24 @@ export class ShopItemComponent {
   @ViewChild(TemplateRef) template!: TemplateRef<any>;
 
   open(config?: MatBottomSheetConfig) {
-    return this.bottomSheet.open(ShopBottomSheetComponent, {
+    const bottomSheetRef = this.bottomSheet.open(ShopBottomSheetComponent, {
       panelClass: 'full-width',
       data: {
         item: this.item,
-        cenas: '',
+        cenas: '2',
       },
+    });
+
+    bottomSheetRef.afterDismissed().subscribe((dataFromChild) => {
+      console.log('after dismissed', dataFromChild);
+
+      this.utilitiesService.cloneObjectValues(this.item, dataFromChild);
+      // this.item = dataFromChild;
+      // this.item.title = dataFromChild.title;
+      // Object.assign(dataFromChild, this.item);
+      this.itemChange.emit(this.item);
+      this.cdr.markForCheck();
+      // this.cdr.markForCheck();
     });
   }
 }

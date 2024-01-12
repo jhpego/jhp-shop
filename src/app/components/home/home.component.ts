@@ -19,6 +19,10 @@ export class HomeComponent {
     private shopItemsService: ShopItemsService
   ) {}
 
+  ngOnInit() {
+    console.log('init home');
+  }
+
   onActionTest() {
     const newDoc = {
       value: 'dssa',

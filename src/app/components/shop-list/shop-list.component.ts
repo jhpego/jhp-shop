@@ -11,6 +11,7 @@ import {
   ShopItem,
   ShopListMode,
 } from '../../models/models';
+import { ShopItemsService } from '../../services/shop-items.service';
 
 @Component({
   selector: 'app-shop-list',
@@ -19,12 +20,23 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopListComponent {
-  constructor() {} // private cdr: ChangeDetectorRef // private shopItemsService: ShopItemsService,
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private shopItemsService: ShopItemsService
+  ) {} // private cdr: ChangeDetectorRef // ,
   ProductCategoryKindEnum = ProductCategoryKind;
 
   @Input() listMode: ShopListMode = ShopListMode.Unset;
   @Input() itemslist: ShopItem[] = [];
   // @Output() change: EventEmitter<ShopItem> = new EventEmitter();
+
+  ngOnInit() {
+    // this.shopItemsService.shopItemUpdated$.subscribe((shopItem: ShopItem) => {
+    //   debugger;
+    //   // this.item = shopItem;
+    //   this.cdr.detectChanges();
+    // });
+  }
 
   ShopListModeEnum = ShopListMode;
 
@@ -39,9 +51,9 @@ export class ShopListComponent {
     );
   }
 
-  // onItemChanged(item: ShopItem) {
-  //   this.change.emit(item);
-  //   this.cdr.markForCheck();
-  //   console.log('changed in shop list');
-  // }
+  onItemChanged(item: any) {
+    // this.change.emit(item);
+    this.cdr.detectChanges();
+    console.log('changed in shop list');
+  }
 }

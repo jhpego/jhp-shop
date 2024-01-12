@@ -31,8 +31,9 @@
     (longTouch)="open()"
     (click)="itemClicked($event)"
     [imageUrl]="item.product.preview"
-    [textContent]="item.identifier"
+    [textContent]="item.title"
     [cardMode]="CardModeEnum.Label"
+    [jsonTitle]="item"
   ></app-jhp-card>
 </div>
 

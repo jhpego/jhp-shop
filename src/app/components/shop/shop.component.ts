@@ -54,6 +54,12 @@ export class ShopComponent extends SwipablePageComponent {
       this.itemsList = res;
       this.cdr.detectChanges();
     });
+
+    this.shopItemsService.shopItemUpdated$.subscribe((res) => {
+      console.warn('detect in shop');
+
+      this.cdr.detectChanges();
+    });
   }
 
   public get itemsTotal() {

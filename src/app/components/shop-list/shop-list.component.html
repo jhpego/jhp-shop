@@ -8,7 +8,10 @@
     </h3>
     <div class="items-container">
       <ng-container *ngFor="let currItem of currGroup.items">
-        <app-shop-item [item]="currItem"></app-shop-item>
+        <app-shop-item
+          [item]="currItem"
+          (itemChange)="onItemChanged($event)"
+        ></app-shop-item>
       </ng-container>
     </div>
   </ng-container>

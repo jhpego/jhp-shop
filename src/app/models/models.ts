@@ -7,7 +7,8 @@ export interface MenuEntry {
 }
 
 export interface ShopItem extends FirestoreItem {
-  identifier: string;
+  // identifier: string;
+  title: string;
   price: number;
   quantity: number;
   product: ShopProduct;
