@@ -68,24 +68,14 @@ export class ShopItemComponent {
   @ViewChild(TemplateRef) template!: TemplateRef<any>;
 
   open(config?: MatBottomSheetConfig) {
-    const bottomSheetRef = this.bottomSheet.open(ShopBottomSheetComponent, {
-      panelClass: 'full-width',
-      data: {
-        item: this.item,
-        cenas: '2',
+    this.shopItemsService.openShopItemSheet(
+      this.item,
+      (itemResult) => {
+        this.utilitiesService.cloneObjectValues(this.item, itemResult);
+        this.itemChange.emit(this.item);
+        this.cdr.markForCheck();
       },
-    });
-
-    bottomSheetRef.afterDismissed().subscribe((dataFromChild) => {
-      console.log('after dismissed', dataFromChild);
-
-      this.utilitiesService.cloneObjectValues(this.item, dataFromChild);
-      // this.item = dataFromChild;
-      // this.item.title = dataFromChild.title;
-      // Object.assign(dataFromChild, this.item);
-      this.itemChange.emit(this.item);
-      this.cdr.markForCheck();
-      // this.cdr.markForCheck();
-    });
+      config
+    );
   }
 }

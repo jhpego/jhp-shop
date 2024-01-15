@@ -1,21 +1,28 @@
 <form [formGroup]="formShopItem" (ngSubmit)="onSubmit(formShopItem)">
-  <!-- <label for="first-name">First Name: </label>
-  <input id="first-name" type="text" formControlName="firstName" />
+  <lib-base-dropdown
+    [options$]="categories$"
+    [controlPath]="'product/category'"
+    label="Category"
+    (changed)="onCategoryChanged($event)"
+    [config]="{ shouldTranslate: true }"
+  ></lib-base-dropdown>
 
-  <label for="last-name">Last Name: </label>
-  <input id="last-name" type="text" formControlName="lastName" /> -->
   <lib-base-dropdown
     [propLabel]="'identifier'"
     [options$]="products$"
     [controlPath]="'product/id'"
     label="Product"
+    (changed)="onProductChanged($event)"
   ></lib-base-dropdown>
-  <lib-base-dropdown
-    [options$]="categories$"
-    [controlPath]="'product/category'"
-    label="Category"
-  ></lib-base-dropdown>
+
   <lib-base-input [controlPath]="'price'" label="Price"></lib-base-input>
-  <lib-base-input [controlPath]="'title'" label="title"></lib-base-input>
-  <button type="submit">{{ "Submit_Label" | translate }}</button>
+
+  <lib-base-input [controlPath]="'title'" label="Title"></lib-base-input>
+
+  <button type="button" *ngIf="!isNew" (click)="onRemoveItem()">
+    {{ "Remove_Label" | translate }}
+  </button>
+  <button type="submit">
+    {{ (isNew ? "Create_Label" : "Update_Label") | translate }}
+  </button>
 </form>

@@ -56,4 +56,14 @@ export class ShopListComponent {
     this.cdr.detectChanges();
     console.log('changed in shop list');
   }
+
+  onClickAdd(evt: any) {
+    console.warn('add event: ', evt);
+
+    this.shopItemsService.openShopItemSheet(null, (itemResult) => {
+      // this.utilitiesService.cloneObjectValues(this.item, itemResult);
+      // this.itemChange.emit(this.item);
+      this.cdr.markForCheck();
+    });
+  }
 }

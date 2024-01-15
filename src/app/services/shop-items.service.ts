@@ -20,6 +20,12 @@ import {
 } from 'rxjs';
 import { JhpFirestoreService } from '@lib-base';
 import products from './../data/products.json';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
+import { ShopBottomSheetComponent } from '../components/shop-bottom-sheet/shop-bottom-sheet.component';
+import { UtilitiesService } from 'libs/base/src/services/utilities.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,12 +33,14 @@ import products from './../data/products.json';
 export class ShopItemsService {
   constructor(
     private http: HttpClient,
-    private jhpFirestoreService: JhpFirestoreService
+    private jhpFirestoreService: JhpFirestoreService,
+    readonly bottomSheet: MatBottomSheet,
+    private utilitiesService: UtilitiesService
   ) {
     this.setList();
   }
 
-  shopItemUpdated$: Subject<ShopItem> = new Subject<ShopItem>();
+  shopItemUpdated$: Subject<ShopItem | null> = new Subject<ShopItem | null>();
 
   getImageFromIdentifier(identifier: string): Observable<string> {
     const url = `https://pixabay.com/api/?key=39989250-bc0fc5f5c826b727960dabdf2&q=${identifier}}&image_type=vector`;
@@ -138,5 +146,35 @@ export class ShopItemsService {
 
   getList() {
     return this.itemsList;
+  }
+
+  openShopItemSheet(
+    item?: ShopItem | null,
+    cb?: (item?: ShopItem | null) => void | null,
+    config?: MatBottomSheetConfig
+  ) {
+    const bottomSheetRef = this.bottomSheet.open(ShopBottomSheetComponent, {
+      panelClass: 'full-width',
+      data: {
+        item: item,
+        isNew: item == null,
+      },
+    });
+
+    bottomSheetRef.afterDismissed().subscribe((bottomSheetResult) => {
+      console.log('after bottomsheet dismissed', bottomSheetResult);
+      if (bottomSheetResult == null) {
+        console.log('item removed');
+      } else if (item == null) {
+        console.log('item added');
+      } else {
+        console.log('item edited');
+        this.utilitiesService.cloneObjectValues(item, bottomSheetResult, true);
+      }
+
+      if (cb != null) {
+        cb(item);
+      }
+    });
   }
 }

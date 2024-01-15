@@ -12,12 +12,16 @@ import { ShopItem } from '../../models/models';
 })
 export class ShopBottomSheetComponent {
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { item: ShopItem },
+    @Inject(MAT_BOTTOM_SHEET_DATA)
+    public data: {
+      item: ShopItem;
+      isNew: boolean;
+    },
 
     private bottomsheet: MatBottomSheetRef<ShopBottomSheetComponent>
   ) {}
 
-  onChanged(shopItem: ShopItem) {
+  onChanged(shopItem: ShopItem | null) {
     console.warn('changed edit shop', shopItem);
 
     this.bottomsheet.dismiss(shopItem);

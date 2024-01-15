@@ -16,5 +16,8 @@
     "Price_Label": "Preço",
     "Identifier_Label": "Identificador",
     "Category_Label": "Categoria",
-    "Product_Label": "Produto"
+    "Product_Label": "Produto",
+    "Title_Label": "Título",
+    "Update_Label": "Atualizar",
+    "Create_Label": "Criar"
 }

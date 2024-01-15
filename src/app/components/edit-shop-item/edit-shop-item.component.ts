@@ -6,9 +6,22 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ProductCategoryKind, ShopItem } from '../../models/models';
+import {
+  ProductCategoryKind,
+  ProductUnitKind,
+  ShopItem,
+} from '../../models/models';
 import { EnumToArrayPipe } from 'libs/base/src/pipes/currency.pipe';
-import { map, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  combineLatest,
+  map,
+  of,
+  startWith,
+  tap,
+} from 'rxjs';
 import { FormEngineService } from 'libs/base/src/services/form-engine.service';
 import { ShopItemsService } from '../../services/shop-items.service';
 import { UtilitiesService } from 'libs/base/src/services/utilities.service';
@@ -21,7 +34,9 @@ import { UtilitiesService } from 'libs/base/src/services/utilities.service';
 })
 export class EditShopItemComponent {
   @Input() shopItem!: ShopItem;
-  @Output() changed: EventEmitter<ShopItem> = new EventEmitter<ShopItem>();
+  @Input() isNew!: boolean;
+  @Output() changed: EventEmitter<ShopItem | null> =
+    new EventEmitter<ShopItem | null>();
 
   constructor(
     private fb: FormBuilder,
@@ -32,20 +47,25 @@ export class EditShopItemComponent {
     private utilitiesService: UtilitiesService
   ) {}
 
-  formShopItem!: FormGroup;
+  // formProps: any = ;
 
-  updateItem() {
-    this.formShopItem.patchValue(
-      this.shopItem
-      //   {
-      //   firstName: 'Nancy',
-      //   categoryId: 3,
-      //   price:
-      //   address: {
-      //     street: '123 Drew Street',
-      //   },
-      // }
-    );
+  categorySelected$ = new BehaviorSubject<number>(-1);
+
+  formShopItem: FormGroup = this.formEngineService.createForm({
+    title: [''],
+    // lastName: [''],
+    categoryId: [0],
+    price: [0],
+    product: this.fb.group({
+      category: [3],
+      id: [0],
+      // state: [''],
+      // zip: [''],
+    }),
+  });
+
+  updateFormItem() {
+    this.formShopItem.patchValue(this.shopItem);
   }
 
   categories$ = of(this.enumToarray.transform(ProductCategoryKind)).pipe(
@@ -58,34 +78,47 @@ export class EditShopItemComponent {
     tap((items) => console.warn('items', items))
   );
 
-  products$ = this.shopItemsService
-    .getProducts()
-    .pipe(tap((products) => console.warn('products', products)));
+  products$ = combineLatest([
+    this.shopItemsService.getProducts(),
+    this.categorySelected$,
+  ]).pipe(
+    tap(([products, currCategoryId]) =>
+      console.warn('products by category', currCategoryId, products)
+    ),
+    map(([products, currCategoryId]) => {
+      if (currCategoryId >= 0) {
+        return products.filter((prd) => prd.category == currCategoryId);
+      }
+      return products;
+    })
+  );
 
   ngOnInit() {
-    const formProps: any = {
-      title: [''],
-      // lastName: [''],
-      // categoryId: [0],
-      price: [0],
-      product: this.fb.group({
-        category: [3],
-        id: [0],
-        // state: [''],
-        // zip: [''],
-      }),
-    };
+    // this.formShopItem = ;
 
-    this.formShopItem = this.formEngineService.createForm(formProps);
+    if (this.isNew) {
+      this.shopItem = {
+        title: '',
+        status: 1,
+        quantity: 1,
+        price: 0,
+        productId: 0,
+        product: {
+          category: 0,
+          identifier: '',
+          unit: ProductUnitKind.Unit,
+          preview: '',
+        },
+      };
+    }
 
-    this.updateItem();
+    this.categorySelected$.next(this.shopItem.product.category);
+
+    this.updateFormItem();
   }
 
   onSubmit(formShopItem: FormGroup) {
     console.warn('submit', formShopItem);
-    // this.shopItem = this.formShopItem.value;
-
-    // this.shopItem.title = this.formShopItem.value.title;
 
     this.utilitiesService.cloneObjectValues(
       this.shopItem,
@@ -96,5 +129,20 @@ export class EditShopItemComponent {
     this.changed.emit(this.shopItem);
     this.shopItemsService.shopItemUpdated$.next(this.shopItem);
     this.cdr.detectChanges();
+  }
+
+  onProductChanged(product: any) {
+    console.warn('product changed: ', product);
+    this.shopItem.product = product;
+    this.updateFormItem();
+  }
+
+  onCategoryChanged(category: any) {
+    this.categorySelected$.next(category.id);
+  }
+
+  onRemoveItem() {
+    this.changed.emit(null);
+    this.shopItemsService.shopItemUpdated$.next(null);
   }
 }
