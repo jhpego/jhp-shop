@@ -3,7 +3,7 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { ShopItem } from '../../models/models';
+import { ShopItem, ShopListAction } from '../../models/models';
 
 @Component({
   selector: 'app-shop-bottom-sheet',
@@ -21,9 +21,8 @@ export class ShopBottomSheetComponent {
     private bottomsheet: MatBottomSheetRef<ShopBottomSheetComponent>
   ) {}
 
-  onChanged(shopItem: ShopItem | null) {
-    console.warn('changed edit shop', shopItem);
-
-    this.bottomsheet.dismiss(shopItem);
+  onChanged(shopListAction: ShopListAction) {
+    console.warn('changed edit shop', shopListAction);
+    this.bottomsheet.dismiss(shopListAction);
   }
 }

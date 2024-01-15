@@ -3,6 +3,7 @@ import {
   ProductCategoryKind,
   ProductUnitKind,
   ShopItem,
+  ShopListAction,
 } from '../models/models';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -34,13 +35,12 @@ export class ShopItemsService {
   constructor(
     private http: HttpClient,
     private jhpFirestoreService: JhpFirestoreService,
-    readonly bottomSheet: MatBottomSheet,
-    private utilitiesService: UtilitiesService
+    readonly bottomSheet: MatBottomSheet
   ) {
     this.setList();
   }
 
-  shopItemUpdated$: Subject<ShopItem | null> = new Subject<ShopItem | null>();
+  shopListUpdated$: Subject<ShopListAction> = new Subject<ShopListAction>();
 
   getImageFromIdentifier(identifier: string): Observable<string> {
     const url = `https://pixabay.com/api/?key=39989250-bc0fc5f5c826b727960dabdf2&q=${identifier}}&image_type=vector`;
@@ -149,8 +149,8 @@ export class ShopItemsService {
   }
 
   openShopItemSheet(
-    item?: ShopItem | null,
-    cb?: (item?: ShopItem | null) => void | null,
+    item: ShopItem | null,
+    cb?: (item: ShopItem | null) => void,
     config?: MatBottomSheetConfig
   ) {
     const bottomSheetRef = this.bottomSheet.open(ShopBottomSheetComponent, {
@@ -160,21 +160,14 @@ export class ShopItemsService {
         isNew: item == null,
       },
     });
-
-    bottomSheetRef.afterDismissed().subscribe((bottomSheetResult) => {
-      console.log('after bottomsheet dismissed', bottomSheetResult);
-      if (bottomSheetResult == null) {
-        console.log('item removed');
-      } else if (item == null) {
-        console.log('item added');
-      } else {
-        console.log('item edited');
-        this.utilitiesService.cloneObjectValues(item, bottomSheetResult, true);
-      }
-
-      if (cb != null) {
-        cb(item);
-      }
-    });
+    bottomSheetRef
+      .afterDismissed()
+      .subscribe((shopListAction: ShopListAction) => {
+        console.log('after bottomsheet dismissed', shopListAction);
+        this.shopListUpdated$.next(shopListAction);
+        if (cb != null) {
+          cb(item);
+        }
+      });
   }
 }

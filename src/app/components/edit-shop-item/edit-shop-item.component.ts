@@ -10,6 +10,7 @@ import {
   ProductCategoryKind,
   ProductUnitKind,
   ShopItem,
+  ShopListAction,
 } from '../../models/models';
 import { EnumToArrayPipe } from 'libs/base/src/pipes/currency.pipe';
 import {
@@ -35,8 +36,8 @@ import { UtilitiesService } from 'libs/base/src/services/utilities.service';
 export class EditShopItemComponent {
   @Input() shopItem!: ShopItem;
   @Input() isNew!: boolean;
-  @Output() changed: EventEmitter<ShopItem | null> =
-    new EventEmitter<ShopItem | null>();
+  @Output() changed: EventEmitter<ShopListAction> =
+    new EventEmitter<ShopListAction>();
 
   constructor(
     private fb: FormBuilder,
@@ -57,7 +58,7 @@ export class EditShopItemComponent {
     categoryId: [0],
     price: [0],
     product: this.fb.group({
-      category: [3],
+      category: [0],
       id: [0],
       // state: [''],
       // zip: [''],
@@ -119,16 +120,15 @@ export class EditShopItemComponent {
 
   onSubmit(formShopItem: FormGroup) {
     console.warn('submit', formShopItem);
-
     this.utilitiesService.cloneObjectValues(
       this.shopItem,
       this.formShopItem.value,
       true
     );
-
-    this.changed.emit(this.shopItem);
-    this.shopItemsService.shopItemUpdated$.next(this.shopItem);
-    this.cdr.detectChanges();
+    this.changed.emit({
+      action: this.isNew ? 'create' : 'update',
+      payload: this.shopItem,
+    });
   }
 
   onProductChanged(product: any) {
@@ -142,7 +142,9 @@ export class EditShopItemComponent {
   }
 
   onRemoveItem() {
-    this.changed.emit(null);
-    this.shopItemsService.shopItemUpdated$.next(null);
+    this.changed.emit({
+      action: 'remove',
+      payload: this.shopItem,
+    });
   }
 }

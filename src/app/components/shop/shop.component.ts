@@ -55,8 +55,16 @@ export class ShopComponent extends SwipablePageComponent {
       this.cdr.detectChanges();
     });
 
-    this.shopItemsService.shopItemUpdated$.subscribe((res) => {
-      console.warn('detect in shop');
+    this.shopItemsService.shopListUpdated$.subscribe((shopListAction) => {
+      console.warn('shopListAction detected in shop');
+
+      if (shopListAction.action === 'create') {
+        this.itemsList.push(shopListAction.payload as ShopItem);
+      } else if (shopListAction.action === 'remove') {
+        this.itemsList = this.itemsList.filter(
+          (item) => item.fireId !== shopListAction.payload?.fireId
+        );
+      }
 
       this.cdr.detectChanges();
     });

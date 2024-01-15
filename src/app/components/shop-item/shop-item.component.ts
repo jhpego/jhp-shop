@@ -71,9 +71,7 @@ export class ShopItemComponent {
     this.shopItemsService.openShopItemSheet(
       this.item,
       (itemResult) => {
-        this.utilitiesService.cloneObjectValues(this.item, itemResult);
-        this.itemChange.emit(this.item);
-        this.cdr.markForCheck();
+        console.log('callback after dismissed: ', itemResult);
       },
       config
     );

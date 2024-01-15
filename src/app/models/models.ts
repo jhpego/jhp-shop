@@ -60,3 +60,8 @@ export enum ShopListMode {
   Aquired,
   Discarded,
 }
+
+export interface ShopListAction {
+  action: 'read' | 'create' | 'update' | 'remove';
+  payload?: ShopItem;
+}
