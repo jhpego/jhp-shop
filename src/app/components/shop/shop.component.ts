@@ -17,6 +17,7 @@ import { ShopListComponent } from '../shop-list/shop-list.component';
 import { ShopItemsService } from '../../services/shop-items.service';
 import { AppService } from '../../services/app.service';
 import { SwipablePageComponent } from '../../pipes/swipe-page.directive';
+import { catchError, of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -50,10 +51,7 @@ export class ShopComponent extends SwipablePageComponent {
 
     this.currPageIdx = 1;
 
-    this.shopItemsService.itemsList$.subscribe((res) => {
-      this.itemsList = res;
-      this.cdr.detectChanges();
-    });
+    this.initShopItems();
 
     this.shopItemsService.shopListUpdated$.subscribe((shopListAction) => {
       console.warn('shopListAction detected in shop');
@@ -66,8 +64,30 @@ export class ShopComponent extends SwipablePageComponent {
         );
       }
 
+      this.saveShopItems();
       this.cdr.detectChanges();
     });
+  }
+
+  getShopItemsFromLocalstorage() {
+    const localShopItems = this.loadShopItems();
+    if (localShopItems == null) {
+      return throwError(() => new Error('test'));
+    }
+    return of(localShopItems);
+  }
+
+  initShopItems() {
+    this.getShopItemsFromLocalstorage()
+      .pipe(
+        catchError((err) => {
+          return this.shopItemsService.getItemsCombined();
+        })
+      )
+      .subscribe((res) => {
+        this.itemsList = res;
+        this.cdr.detectChanges();
+      });
   }
 
   public get itemsTotal() {
@@ -85,5 +105,21 @@ export class ShopComponent extends SwipablePageComponent {
 
   changeMode(modeIdx: any) {
     this.currPageIdx = modeIdx;
+  }
+
+  loadShopItems() {
+    const currShopJson = localStorage.getItem('currShop');
+    const currShop = JSON.parse(currShopJson as string);
+    return currShop;
+  }
+
+  saveShopItems() {
+    const currShop = this.itemsList;
+    const currShopJson = JSON.stringify(currShop);
+    localStorage.setItem('currShop', currShopJson);
+  }
+
+  ngOnDestroy() {
+    this.saveShopItems();
   }
 }
